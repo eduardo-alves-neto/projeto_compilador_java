@@ -1,5 +1,7 @@
+//Exemplos 
+
 var x = 5;
-var ***__y;
+var y;
 y = 10;
 
 
@@ -7,14 +9,11 @@ if (x < y and x == 5) {
     print("x é menor que y e x é igual a 5 ou verdadeiro");
 }
 
-
 while (x < 10) {
     print("O valor de x é:");
     print(x);
     x = x + 1;
 }
-
-
 
 
 var val;

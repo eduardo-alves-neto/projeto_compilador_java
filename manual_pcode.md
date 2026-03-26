@@ -1,4 +1,3 @@
-````md
 # Compilador de Código PCode
 
 **Data:** 2026-02-04  
@@ -141,5 +140,5 @@ java -jar pcode.jar -Input=<FILE> -Debug=<BOOLEAN> -WaitTime=<INT>
 * **DATA_TYPE:** tipos como `int`, `float`, `long`, `double`
 * **LABEL:** rótulos usados em instruções de salto
 
-```
-```
+
+
