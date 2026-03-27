@@ -10,7 +10,7 @@ stmt:
 	| printStmt
 	| inputStmt;
 
-declVar: VAR ID ('=' expr)? ';'; 
+declVar: VAR ID ('=' expr)? ';';
 atribuicao: ID '=' expr ';';
 
 ifStmt: IF '(' condicao ')' '{' NEWLINE* (stmt NEWLINE*)* '}';
@@ -25,26 +25,13 @@ condicaoE: condicaoPrim (AND condicaoPrim)*;
 condicaoPrim: exprRelacional | TRUE | FALSE | '(' condicao ')';
 exprRelacional: expr OP_REL expr;
 
-/*
-
-if(3 == 3 and 3 > 9 or 3 > 9) {
-
-}
-
- */
 
 expr: termo (OP1 termo)*;
 termo: fator (OP2 fator)*;
 fator: unario (POT fator)?;
-unario: (OP1)? atom;
+unario: (OP1)? atom; 
 atom: INT | ID | '(' expr ')';
 
-/*
-
-  -6 ^ 2 * 2 
-
-
- */
 
 VAR: 'var';
 IF: 'if';

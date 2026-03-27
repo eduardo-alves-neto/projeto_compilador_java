@@ -80,7 +80,7 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
 
     @Override
     public Void visitIfStmt(IfStmtContext ctx) {
-        String endLabel = newLabel();// L0 L1 L2
+        String endLabel = newLabel();
 
         visit(ctx.condicao());
         emit("fjp " + endLabel);
@@ -134,8 +134,6 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
         return null;
     }
 
-    // VAR NOME_DA_VAR;
-    // INPUT(NOME_DA_VAR)
 
 
     @Override
@@ -156,7 +154,6 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
 
     @Override
     public Void visitCondicaoE(CondicaoEContext ctx) {
-        // condicaoPrim (AND condicaoPrim)*
         int n = ctx.condicaoPrim().size();
         visit(ctx.condicaoPrim(0));
         for (int i = 1; i < n; i++) {
@@ -165,6 +162,8 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
         }
         return null;
     }
+
+
 
     @Override
     public Void visitCondicaoPrim(CondicaoPrimContext ctx) {
@@ -212,11 +211,9 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
         return null;
     }
 
-    // ========= Expressões aritméticas =========
 
     @Override
     public Void visitExpr(ExprContext ctx) {
-        // termo (OP1 termo)*
         visit(ctx.termo(0));
         int n = ctx.termo().size();
         for (int i = 1; i < n; i++) {
@@ -233,7 +230,6 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
 
     @Override
     public Void visitTermo(TermoContext ctx) {
-        // fator (OP2 fator)*
         visit(ctx.fator(0));
         int n = ctx.fator().size();
         for (int i = 1; i < n; i++) {
@@ -250,10 +246,8 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
 
     @Override
     public Void visitFator(FatorContext ctx) {
-        // unario (POT fator)?
         visit(ctx.unario());
         if (ctx.POT() != null) {
-            // Implementação simplificada: potência não suportada neste momento.
             throw new UnsupportedOperationException("Operador ^ ainda não suportado na geração de P-Code");
         }
         return null;
@@ -263,7 +257,6 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
     public Void visitUnario(UnarioContext ctx) {
         if (ctx.atom() != null) {
             if (ctx.OP1() != null && "-".equals(ctx.OP1().getText())) {
-                // -atom  => 0 atom sub
                 emit("push 0");
                 visit(ctx.atom());
                 emit("sub");
@@ -273,6 +266,7 @@ public class PCodeGeneratorVisitor extends ExprBaseVisitor<Void> {
         }
         return null;
     }
+
 
     @Override
     public Void visitAtom(AtomContext ctx) {
